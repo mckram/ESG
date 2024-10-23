@@ -4,6 +4,8 @@ import numpy as np  # np mean, np random
 import pandas as pd  # read csv, df manipulation
 import plotly.express as px  # interactive charts
 import streamlit as stg  # 🎈 data web app development
+import yaml
+
 
 stg.set_page_config(
     page_title="ESG Data Dashboard",
@@ -11,10 +13,18 @@ stg.set_page_config(
     layout="wide",
 )
 
-# read csv from a github repo
-dataset_url = "/Users/mckennaramsay/Documents/ESG/data.csv"
 
-img = "/Users/mckennaramsay/Desktop/test2.png"
+
+with open("config.yaml", "r") as yamlfile:
+    data = yaml.load(yamlfile, Loader=yaml.FullLoader)
+    print("Read successful")
+print(data['url'])
+
+
+# read csv from a github repo
+dataset_url = data['url']
+
+img = data['img']
 
 # read csv from a URL
 def get_data() -> pd.DataFrame:
