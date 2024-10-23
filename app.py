@@ -4,7 +4,7 @@ import numpy as np  # np mean, np random
 import pandas as pd  # read csv, df manipulation
 import plotly.express as px  # interactive charts
 import streamlit as stg  # 🎈 data web app development
-import yaml
+import json
 
 
 stg.set_page_config(
@@ -15,11 +15,8 @@ stg.set_page_config(
 
 
 
-with open("config.yaml", "r") as yamlfile:
-    data = yaml.load(yamlfile, Loader=yaml.FullLoader)
-    print("Read successful")
-print(data['url'])
-
+with open('configjson', 'r') as file:
+    data = json.load(file)
 
 # read csv from a github repo
 dataset_url = data['url']
