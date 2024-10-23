@@ -101,7 +101,7 @@ with placeholder.container():
     stg.markdown('### Industry: ' + data_name_ind)
         # create three columns
     stg.markdown('### Grade Range')
-    stg.image(img, width = 500)
+    stg.image(img, use_column_width=True)
     stg.markdown('### Grades & Scores')
     kpi1, kpi2, kpi3, kpi4 = stg.columns(4)
 
