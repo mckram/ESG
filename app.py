@@ -19,9 +19,9 @@ with open('config.json', 'r') as file:
     data = json.load(file)
 
 # read csv from a github repo
-dataset_url = data['url']
+dataset_url = 'data.csv'
 
-img = data['img']
+img = 'test2.png'
 
 # read csv from a URL
 def get_data() -> pd.DataFrame:
