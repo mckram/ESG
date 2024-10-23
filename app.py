@@ -14,10 +14,6 @@ stg.set_page_config(
 )
 
 
-
-with open('config.json', 'r') as file:
-    data = json.load(file)
-
 # read csv from a github repo
 dataset_url = 'data.csv'
 
