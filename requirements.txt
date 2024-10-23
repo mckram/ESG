@@ -1,6 +1,4 @@
-plotly
+streamlit==1.26.0
 pandas
-numpy
-streamlit
-libyaml-devel
-libyaml-dev
+plotly==5.16.1
+streamlit-authenticator==0.2.3
