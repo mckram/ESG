@@ -5,6 +5,7 @@ import pandas as pd  # read csv, df manipulation
 import plotly.express as px  # interactive charts
 import streamlit as stg  # 🎈 data web app development
 import json
+import re
 
 stg.set_page_config(
     page_title="ESG Data Dashboard",
@@ -24,6 +25,7 @@ def get_data() -> pd.DataFrame:
 
 data_base = get_data()
 
+
 data_base["industry"].fillna("No industry", inplace = True)
 data_base["logo"].fillna("No logo", inplace = True)
 data_base["weburl"].fillna("No url", inplace = True)
@@ -36,6 +38,10 @@ list_type = ['Total Score', 'Environment Score', 'Social Score', 'Governance Sco
 
 
 # top-level filters
+
+        # create three columns
+stg.markdown('### Grade Range')
+stg.image(img, use_column_width=True)
 name_filter = stg.selectbox("Select the Name", pd.unique(data_base["name"]))
 
 score_filter = stg.selectbox("Select the Score", list_type)
@@ -90,7 +96,15 @@ data_name = data_name_str.split('\n')[0].strip()
 
 data_base['category'] = np.where(data_base['industry'] == data_name_ind , '1', '0')
 
-data_base[''] = np.where(data_base['industry'] == data_name_ind , '1', '0')
+data_base['cat2'] = np.where(data_base['name'] == data_name , '1', '0')
+
+data_base['Rank'] = data_base[score_type].rank(ascending = False)
+
+rank = data_base.loc[data_base['name'] == data_name, 'Rank']
+rank = str(rank).split('\n')
+
+max_val = str(data_base['Rank'].max()).split('.')[0]
+
 
 with placeholder.container():
 
@@ -98,9 +112,23 @@ with placeholder.container():
 
     stg.markdown('## Company Data: ' + data_name)
     stg.markdown('### Industry: ' + data_name_ind)
-        # create three columns
-    stg.markdown('### Grade Range')
-    stg.image(img, use_column_width=True)
+
+
+           # create two columns for charts
+    fig_col1,  = stg.columns(1)
+    with fig_col1:
+        stg.markdown("### Company Performance: " + score_filter)
+        stg.markdown('### Rank: ' + rank[0][3:].split('.')[0] + '/' + max_val) 
+        fig = px.histogram(
+            data_frame=data_base,  labels={
+                     score_type: "Score",
+                     "name": "Company",
+                 }, y=score_type, x="name", color='cat2', color_discrete_map= {'0': "#b9cbec",
+                                      '1': "#EF0107"}, height = 700)
+        fig.update_layout(xaxis_title=None, barmode='stack', xaxis={'categoryorder':'total descending'}, showlegend=False, font_size = 5)
+        fig.update_xaxes(showticklabels=False)
+        stg.write(fig)
+
     stg.markdown('### Grades & Scores')
     kpi1, kpi2, kpi3, kpi4 = stg.columns(4)
 
@@ -192,7 +220,7 @@ with placeholder.container():
                      score_type: "Score",
                      "industry": "Industry",
                  }, y=score_type, x="industry", color='category', color_discrete_map= {'0': "#b9cbec",
-                                      '1': "#4b8aff"}, height = 700)
+                                      '1': "#EF0107"}, height = 700)
         fig.update_layout(barmode='stack', xaxis={'categoryorder':'total descending'}, showlegend=False, font_size = 5)
 
         stg.write(fig)
