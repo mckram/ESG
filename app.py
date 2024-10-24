@@ -6,7 +6,6 @@ import plotly.express as px  # interactive charts
 import streamlit as stg  # 🎈 data web app development
 import json
 
-
 stg.set_page_config(
     page_title="ESG Data Dashboard",
     page_icon="✅",
@@ -189,9 +188,12 @@ with placeholder.container():
     with fig_col1:
         stg.markdown("### Industry Ranking: " + score_filter)
         fig = px.histogram(
-            data_frame=data_base, y=score_type, x="industry", color='category', color_discrete_map= {'0': 'lightblue',
-                                      '1': 'darkblue'}, height = 700)
-        fig.update_layout(barmode='stack', xaxis={'categoryorder':'total descending'}, showlegend=False, font_family="Courier New", font_size = 5)
+            data_frame=data_base,  labels={
+                     score_type: "Score",
+                     "industry": "Industry",
+                 }, y=score_type, x="industry", color='category', color_discrete_map= {'0': "#b9cbec",
+                                      '1': "#4b8aff"}, height = 700)
+        fig.update_layout(barmode='stack', xaxis={'categoryorder':'total descending'}, showlegend=False, font_size = 5)
 
         stg.write(fig)
 
