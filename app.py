@@ -40,7 +40,7 @@ list_type = ['Total Score', 'Environment Score', 'Social Score', 'Governance Sco
 # top-level filters
 
         # create three columns
-stg.markdown('### Grade Range')
+stg.markdown('### :grey[Grade Range]')
 stg.image(img, use_column_width=True)
 name_filter = stg.selectbox("Select the Name", pd.unique(data_base["name"]))
 
@@ -110,26 +110,26 @@ with placeholder.container():
 
     grades = str(data_base['total_grade'].unique())
 
-    stg.markdown('## Company Data: ' + data_name)
-    stg.markdown('### Industry: ' + data_name_ind)
+    stg.markdown('## :grey[Company Data: ] ' + data_name)
+    stg.markdown('### :grey[Industry: ] ' + data_name_ind)
 
 
            # create two columns for charts
     fig_col1,  = stg.columns(1)
     with fig_col1:
-        stg.markdown("### Company Performance: " + score_filter)
-        stg.markdown('### Rank: ' + rank[0][3:].split('.')[0] + '/' + counts) 
+        stg.markdown("###  :grey[Company Performance: ] " + score_filter)
+        stg.markdown('### :grey[Rank: ] ' + rank[0][3:].split('.')[0] + '/' + counts) 
         fig = px.histogram(
             data_frame=data_base,  labels={
                      score_type: "Score",
                      "name": "Company",
                  }, y=score_type, x="name", color='cat2', color_discrete_map= {'0': "#b9cbec",
                                       '1': "#EF0107"}, height = 700)
-        fig.update_layout(xaxis_title=None, barmode='stack', xaxis={'categoryorder':'total descending'}, showlegend=False, font_size = 5)
+        fig.update_layout( xaxis_title=None, barmode='stack', xaxis={'categoryorder':'total descending'}, showlegend=False, font_size = 5)
         fig.update_xaxes(showticklabels=False)
         stg.write(fig)
 
-    stg.markdown('### Grades & Scores')
+    stg.markdown('### :grey[Grades & Scores]')
     kpi1, kpi2, kpi3, kpi4 = stg.columns(4)
 
         # fill in those three columns with respective metrics or KPIs
@@ -214,7 +214,7 @@ with placeholder.container():
     color = {data_name:'#2c7bb6'}
     fig_col1, = stg.columns(1)
     with fig_col1:
-        stg.markdown("### Industry Ranking: " + score_filter)
+        stg.markdown("### :grey[Industry Ranking: ] " + score_filter)
         fig = px.histogram(
             data_frame=data_base,  labels={
                      score_type: "Score",
@@ -229,5 +229,5 @@ with placeholder.container():
             
             
 
-    stg.markdown("### Detailed Data View")
+    stg.markdown("### :grey[Detailed Data View]")
     stg.dataframe(df)
