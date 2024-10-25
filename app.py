@@ -34,6 +34,9 @@ data_base.isnull().sum()
 # dashboard title
 stg.title("ESG Data Dashboard")
 
+stg.markdown('What is ESG (environmental, social and governance)? ')
+stg.markdown('Environmental, social and governance (ESG) is a framework used to assess an organization\'s business practices and performance on various sustainability and ethical issues.')
+
 list_type = ['Total Score', 'Environment Score', 'Social Score', 'Governance Score']
 
 
