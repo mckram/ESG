@@ -100,10 +100,10 @@ data_base['cat2'] = np.where(data_base['name'] == data_name , '1', '0')
 
 data_base['Rank'] = data_base[score_type].rank(ascending = False)
 
+counts = str(data_base['name'].count())
+
 rank = data_base.loc[data_base['name'] == data_name, 'Rank']
 rank = str(rank).split('\n')
-
-max_val = str(data_base['Rank'].max()).split('.')[0]
 
 
 with placeholder.container():
@@ -118,7 +118,7 @@ with placeholder.container():
     fig_col1,  = stg.columns(1)
     with fig_col1:
         stg.markdown("### Company Performance: " + score_filter)
-        stg.markdown('### Rank: ' + rank[0][3:].split('.')[0] + '/' + max_val) 
+        stg.markdown('### Rank: ' + rank[0][3:].split('.')[0] + '/' + counts) 
         fig = px.histogram(
             data_frame=data_base,  labels={
                      score_type: "Score",
