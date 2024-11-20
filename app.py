@@ -82,17 +82,17 @@ total_grade = total_grade.split('\n')[0].strip()
 environment = np.mean(df["environment_score"])
 environment_ind = np.mean(df_ind["environment_score"])
 env_grade = str(df['environment_grade']).split(' ',1)[1]
-env_grade = total_grade.split('\n')[0].strip()
+env_grade = env_grade.split('\n')[0].strip()
 
 social = np.mean(df["social_score"])
 social_ind = np.mean(df_ind["social_score"])
 social_grade = str(df['social_grade']).split(' ',1)[1]
-social_grade = total_grade.split('\n')[0].strip()
+social_grade = social_grade.split('\n')[0].strip()
 
 governance = np.mean(df["governance_score"])
 governance_ind = np.mean(df_ind["governance_score"])
 gov_grade = str(df['governance_grade']).split(' ',1)[1]
-gov_grade = total_grade.split('\n')[0].strip()
+gov_grade = gov_grade.split('\n')[0].strip()
 
 data_name_str = str(df['name']).split(' ',1)[1]
 data_name = data_name_str.split('\n')[0].strip()
